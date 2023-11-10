@@ -7,6 +7,7 @@ import org.selenide.examples.pages.WildberriesMainPage;
 import org.selenide.examples.pages.WildberriesProductPage;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.*;
 
@@ -90,11 +91,17 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
     }
 
     @Test
-    public void checkVisibilityOfProductPopupButton() {
+    public void checkVisibilityOfProductPopupButton() throws InterruptedException {
         Assert.assertFalse(mainPage.getOpenProductPopupButtonVisibility());
 
         mainPage.hoverProductCard();
 
         Assert.assertTrue(mainPage.getOpenProductPopupButtonVisibility());
+
+        mainPage.getProductPopup().shouldNotBe(visible);
+
+        mainPage.clickOnOpenProductPopupButton();
+
+        mainPage.getProductPopup().shouldBe(visible);
     }
 }
