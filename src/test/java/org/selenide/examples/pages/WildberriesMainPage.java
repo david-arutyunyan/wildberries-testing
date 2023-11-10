@@ -15,6 +15,8 @@ public class WildberriesMainPage {
     private final SelenideElement searchInput = $(byId("searchInput"));
     private final SelenideElement productCard = $x("//article[1]");
     private final SelenideElement openProductPopupButton = $x("//article[1]/div/div[1]/button[@class='product-card__fast-view hide-mobile j-open-product-popup']");
+    private final String FIRST_PRODUCT_NAME = $x("//article[1]//div//h2//span[1]").shouldBe(visible).text() +
+            " " + $x("//article[1]//div//h2//span[2]").shouldBe(visible).text();
 
     public WildberriesMainPage() {
         waitForElements();
@@ -27,6 +29,10 @@ public class WildberriesMainPage {
                 .shouldBe(visible);
         $x(headerXPath + "//div[3]//a//span[@class='navbar-pc__icon navbar-pc__icon--basket']")
                 .shouldBe(visible);
+    }
+
+    public String getFirstProductName() {
+        return FIRST_PRODUCT_NAME;
     }
 
     public boolean getOpenProductPopupButtonVisibility() {

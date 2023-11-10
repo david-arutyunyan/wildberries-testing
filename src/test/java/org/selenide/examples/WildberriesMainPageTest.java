@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.selenide.examples.pages.WildberriesMainPage;
 import org.selenide.examples.pages.WildberriesProductPage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.*;
 
@@ -83,11 +84,9 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
     public void checkCorrectFollowOnProductCardLink() {
         mainPage.clickOnProductCard();
         createProductPage();
-        String FIRST_PRODUCT_NAME = $x("//article[1]//div//h2//span[1]").text() +
-                " " + $x("//article[1]//div//h2//span[2]").text();
 
         webdriver().shouldHave(url("https://www.wildberries.ru/catalog/" + mainPage.getProductCardId() + "/detail.aspx"));
-        Assert.assertEquals(productPage.getProductName(), FIRST_PRODUCT_NAME);
+        Assert.assertEquals(productPage.getProductName(), mainPage.getFirstProductName());
     }
 
     @Test
