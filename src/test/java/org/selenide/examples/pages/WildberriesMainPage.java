@@ -18,6 +18,9 @@ public class WildberriesMainPage {
     private final String FIRST_PRODUCT_NAME = $x("//article[1]//div//h2//span[1]").text() +
             " " + $x("//article[1]//div//h2//span[2]").text();
     private final SelenideElement productPopup = $x("//div[@class='popup i-popup-same-part-kt j-product-popup shown']");
+    private final SelenideElement sideCategoriesMenu = $x("//div[@class='menu-burger__main j-menu-burger-main j-menu-active']");
+    private final SelenideElement sideCategoriesMenuButton = $x("//div[@class='header__bottom']//div[1]//button");
+    private final ElementsCollection categories = $$x("//div[@class='menu-burger__main j-menu-burger-main j-menu-active']//ul//li");
 
     public WildberriesMainPage() {
         waitForElements();
@@ -32,6 +35,16 @@ public class WildberriesMainPage {
                 .shouldBe(visible);
     }
 
+    public ElementsCollection getCategories() {
+        return categories;
+    }
+
+    public SelenideElement getSideCategoriesMenu() {
+        return sideCategoriesMenu;
+    }
+    public void clickOnSideCategoriesMenuButton() {
+        sideCategoriesMenuButton.shouldBe(visible).click();
+    }
     public SelenideElement getProductPopup() {
         return productPopup;
     }

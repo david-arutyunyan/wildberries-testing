@@ -1,13 +1,15 @@
 package org.selenide.examples;
 
+import com.codeborne.selenide.WebElementsCondition;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.selenide.examples.pages.WildberriesMainPage;
 import org.selenide.examples.pages.WildberriesProductPage;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.*;
 
@@ -91,7 +93,7 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
     }
 
     @Test
-    public void checkVisibilityOfProductPopupButton() throws InterruptedException {
+    public void checkProductPopupButton() {
         Assert.assertFalse(mainPage.getOpenProductPopupButtonVisibility());
 
         mainPage.hoverProductCard();
@@ -104,4 +106,16 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
         mainPage.getProductPopup().shouldBe(visible);
     }
+
+    @Test
+    public void checkCategoriesButton() {
+        mainPage.getSideCategoriesMenu().shouldNotBe(visible);
+
+        mainPage.clickOnSideCategoriesMenuButton();
+
+        mainPage.getSideCategoriesMenu().shouldBe(visible);
+
+        mainPage.getCategories().shouldHave(sizeGreaterThanOrEqual(26));
+    }
+
 }
