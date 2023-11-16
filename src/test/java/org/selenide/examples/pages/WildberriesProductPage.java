@@ -11,6 +11,8 @@ public class WildberriesProductPage {
             $x("//div[@class='product-page__header']//span").text() + " / " +
                     $x("//div[@class='product-page__header']//h1").text();
 
+    private final SelenideElement addToCartButton = $x("//button[@class='btn-main']");
+
     public WildberriesProductPage() {
         waitForElements();
     }
@@ -21,5 +23,9 @@ public class WildberriesProductPage {
 
     public String getProductName() {
         return productName;
+    }
+
+    public void clickAddToCartButton() {
+        addToCartButton.shouldBe(visible).click();
     }
 }
