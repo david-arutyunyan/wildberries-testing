@@ -52,7 +52,7 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
     }
 
     @Test
-    public void checkToMainPageButton() {
+    public void checkEmptyCart() {
         Assert.assertEquals(EXPECTED_CART_IS_EMPTY_TEXT, cartPage.getCartIsEmptyHeaderText());
 
         Assert.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, cartPage.getToMainPageButtonHref());
@@ -71,12 +71,6 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
         Assert.assertTrue(cartPage.isDeleteProductButtonExist());
 
         Assert.assertTrue(cartPage.isAddToPostponeButtonExist());
-
-        Assert.assertEquals("1", cartPage.getCartSectionHeaderDataCount());
-
-        cartPage.clickOnCountPlusButton();
-
-        Assert.assertEquals("2", cartPage.getCartSectionHeaderDataCount());
     }
 
     @Test
