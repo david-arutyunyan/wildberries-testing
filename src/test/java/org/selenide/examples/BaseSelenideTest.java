@@ -11,11 +11,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class BaseSelenideTest {
     public void configSetup() {
+        //Configuration.browser = "edge";
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.pageLoadTimeout = 10000;
-        //Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = false;
     }
 
     @Before
