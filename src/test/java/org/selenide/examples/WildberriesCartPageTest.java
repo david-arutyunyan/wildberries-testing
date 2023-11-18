@@ -11,11 +11,10 @@ import org.selenide.examples.pages.WildberriesProductPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.webdriver;
-import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class WildberriesCartPageTest extends BaseSelenideTest {
 
-    private final static String BASE_URL = "https://www.wildberries.ru/lk/basket";
+    protected final static String BASE_URL = "https://www.wildberries.ru/lk/basket";
     private final static String EXPECTED_TO_MAIN_PAGE_BUTTON_HREF = "https://www.wildberries.ru/";
     private static final String SOME_PRODUCT_URL = "https://www.wildberries.ru/catalog/19252625/detail.aspx";
     private final String EXPECTED_CART_IS_EMPTY_TEXT = "В корзине пока пусто";
@@ -24,9 +23,13 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
     WildberriesMainPage mainPage;
     WildberriesProductPage productPage;
 
+    @Override
+    protected String getBaseUrl() {
+        return BASE_URL;
+    }
+
     @Before
     public void openMainPage() {
-        open(BASE_URL);
         cartPage = new WildberriesCartPage();
     }
 
@@ -51,6 +54,10 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
         productPage.clickAddToCartButton();
     }
 
+    private String getWebdriverUrl() {
+        return webdriver().driver().getCurrentFrameUrl();
+    }
+
     @Test
     public void checkEmptyCart() {
         Assert.assertEquals(EXPECTED_CART_IS_EMPTY_TEXT, cartPage.getCartIsEmptyHeaderText());
@@ -59,7 +66,7 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
 
         cartPage.clickOnToMainPageButton();
 
-        webdriver().shouldHave(url(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF));
+        Assert.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
@@ -94,10 +101,5 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
 
         Assert.assertEquals(SOME_PRODUCT_URL, cartPage.getProductImageHref());
         Assert.assertEquals(SOME_PRODUCT_URL, cartPage.getProductNameHref());
-    }
-
-    @Test
-    public void e() {
-
     }
 }

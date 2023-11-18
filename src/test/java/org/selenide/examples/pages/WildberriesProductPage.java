@@ -1,13 +1,8 @@
 package org.selenide.examples.pages;
 
-import com.codeborne.selenide.ClickOptions;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class WildberriesProductPage {
@@ -40,10 +35,4 @@ public class WildberriesProductPage {
     public void clickAddToCartButton() {
         addToCartButton.doubleClick();
     }
-//
-//    public String getProductPrice() {
-//        String price = productPrice.text();
-//        return price + productPrice.getText();
-//        //return price.substring(0, price.length() - 7);
-//    }
 }

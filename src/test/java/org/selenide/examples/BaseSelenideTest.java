@@ -2,14 +2,14 @@ package org.selenide.examples;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
+import static com.codeborne.selenide.Selenide.open;
 
 public class BaseSelenideTest {
+    private final static String BASE_URL = "https://www.wildberries.ru";
+
     public void configSetup() {
         //Configuration.browser = "edge";
         Configuration.browserSize = "1920x1080";
@@ -22,6 +22,11 @@ public class BaseSelenideTest {
     @Before
     public void init() {
         configSetup();
+        open(getBaseUrl());
+    }
+
+    protected String getBaseUrl() {
+        return BASE_URL;
     }
 
     @After

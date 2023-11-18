@@ -1,20 +1,17 @@
 package org.selenide.examples;
 
-import com.codeborne.selenide.WebElementsCondition;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.selenide.examples.pages.WildberriesMainPage;
 import org.selenide.examples.pages.WildberriesProductPage;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverConditions.*;
 
 public class WildberriesMainPageTest extends BaseSelenideTest {
-    private final static String BASE_URL = "https://www.wildberries.ru";
+    protected final static String BASE_URL = "https://www.wildberries.ru";
     private final static String EXPECTED_HEADER_ADDRESS_BUTTON_HREF = "https://www.wildberries.ru/services/besplatnaya-dostavka?desktop=1#terms-delivery";
     private final static String EXPECTED_HEADER_AUTH_BUTTON_HREF = "https://www.wildberries.ru/security/login?returnUrl=https%3A%2F%2Fwww.wildberries.ru%2F";
     private final static String EXPECTED_HEADER_CART_BUTTON_HREF = "https://www.wildberries.ru/lk/basket";
@@ -27,12 +24,20 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
     @Before
     public void openMainPage() {
-        open(BASE_URL);
         mainPage = new WildberriesMainPage();
     }
 
     private void createProductPage() {
         productPage = new WildberriesProductPage();
+    }
+
+    @Override
+    protected String getBaseUrl() {
+        return BASE_URL;
+    }
+
+    private String getWebdriverUrl() {
+        return webdriver().driver().getCurrentFrameUrl();
     }
 
     @Test
@@ -41,7 +46,7 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
         mainPage.clickOnAddressButton();
 
-        webdriver().shouldHave(url(EXPECTED_HEADER_ADDRESS_BUTTON_HREF));
+        Assert.assertEquals(EXPECTED_HEADER_ADDRESS_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
@@ -50,7 +55,7 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
         mainPage.clickOnAuthButton();
 
-        webdriver().shouldHave(url(EXPECTED_HEADER_AUTH_BUTTON_HREF));
+        Assert.assertEquals(EXPECTED_HEADER_AUTH_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
@@ -59,7 +64,7 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
         mainPage.clickOnCartButton();
 
-        webdriver().shouldHave(url(EXPECTED_HEADER_CART_BUTTON_HREF));
+        Assert.assertEquals(EXPECTED_HEADER_CART_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
@@ -88,7 +93,8 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
         mainPage.clickOnProductCard();
         createProductPage();
 
-        webdriver().shouldHave(url("https://www.wildberries.ru/catalog/" + mainPage.getProductCardId() + "/detail.aspx"));
+        Assert.assertEquals("https://www.wildberries.ru/catalog/" + mainPage.getProductCardId() + "/detail.aspx", getWebdriverUrl());
+
         Assert.assertEquals(productPage.getProductName(), mainPage.getFirstProductName());
     }
 
@@ -117,5 +123,4 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
         mainPage.getCategories().shouldHave(sizeGreaterThanOrEqual(26));
     }
-
 }
