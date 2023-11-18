@@ -1,9 +1,9 @@
 package org.selenide.examples;
 
 import com.codeborne.selenide.Selenide;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import org.selenide.examples.pages.WildberriesCartPage;
 import org.selenide.examples.pages.WildberriesMainPage;
@@ -28,7 +28,7 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
         return BASE_URL;
     }
 
-    @Before
+    @BeforeEach
     public void openMainPage() {
         cartPage = new WildberriesCartPage();
     }
@@ -60,46 +60,46 @@ public class WildberriesCartPageTest extends BaseSelenideTest {
 
     @Test
     public void checkEmptyCart() {
-        Assert.assertEquals(EXPECTED_CART_IS_EMPTY_TEXT, cartPage.getCartIsEmptyHeaderText());
+        Assertions.assertEquals(EXPECTED_CART_IS_EMPTY_TEXT, cartPage.getCartIsEmptyHeaderText());
 
-        Assert.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, cartPage.getToMainPageButtonHref());
+        Assertions.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, cartPage.getToMainPageButtonHref());
 
         cartPage.clickOnToMainPageButton();
 
-        Assert.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, getWebdriverUrl());
+        Assertions.assertEquals(EXPECTED_TO_MAIN_PAGE_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
     public void checkAreMainButtonsExist() throws InterruptedException {
         addProductToCart();
 
-        Assert.assertTrue(cartPage.isOrderButtonExist());
+        Assertions.assertTrue(cartPage.isOrderButtonExist());
 
-        Assert.assertTrue(cartPage.isDeleteProductButtonExist());
+        Assertions.assertTrue(cartPage.isDeleteProductButtonExist());
 
-        Assert.assertTrue(cartPage.isAddToPostponeButtonExist());
+        Assertions.assertTrue(cartPage.isAddToPostponeButtonExist());
     }
 
     @Test
     public void checkPlusAndMinusButtons() throws InterruptedException {
         addProductToCart();
 
-        Assert.assertEquals("1", cartPage.getCartSectionHeaderDataCount());
+        Assertions.assertEquals("1", cartPage.getCartSectionHeaderDataCount());
 
         cartPage.clickOnCountPlusButton();
 
-        Assert.assertEquals("2", cartPage.getCartSectionHeaderDataCount());
+        Assertions.assertEquals("2", cartPage.getCartSectionHeaderDataCount());
 
         cartPage.clickOnCountMinusButton();
 
-        Assert.assertEquals("1", cartPage.getCartSectionHeaderDataCount());
+        Assertions.assertEquals("1", cartPage.getCartSectionHeaderDataCount());
     }
 
     @Test
     public void checkProductHrefs() throws InterruptedException {
         addProductToCart();
 
-        Assert.assertEquals(SOME_PRODUCT_URL, cartPage.getProductImageHref());
-        Assert.assertEquals(SOME_PRODUCT_URL, cartPage.getProductNameHref());
+        Assertions.assertEquals(SOME_PRODUCT_URL, cartPage.getProductImageHref());
+        Assertions.assertEquals(SOME_PRODUCT_URL, cartPage.getProductNameHref());
     }
 }

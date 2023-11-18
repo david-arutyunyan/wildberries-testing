@@ -1,8 +1,9 @@
 package org.selenide.examples;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import dev.failsafe.internal.util.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.selenide.examples.pages.WildberriesMainPage;
 import org.selenide.examples.pages.WildberriesProductPage;
 
@@ -22,7 +23,7 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
     WildberriesMainPage mainPage;
     WildberriesProductPage productPage;
 
-    @Before
+    @BeforeEach
     public void openMainPage() {
         mainPage = new WildberriesMainPage();
     }
@@ -42,50 +43,50 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
 
     @Test
     public void checkHeaderAddressButton() {
-        Assert.assertEquals(EXPECTED_HEADER_ADDRESS_BUTTON_HREF, mainPage.getAddressButtonHref());
+        Assertions.assertEquals(EXPECTED_HEADER_ADDRESS_BUTTON_HREF, mainPage.getAddressButtonHref());
 
         mainPage.clickOnAddressButton();
 
-        Assert.assertEquals(EXPECTED_HEADER_ADDRESS_BUTTON_HREF, getWebdriverUrl());
+        Assertions.assertEquals(EXPECTED_HEADER_ADDRESS_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
     public void checkHeaderAuthButton() {
-        Assert.assertEquals(EXPECTED_HEADER_AUTH_BUTTON_HREF, mainPage.getAuthButtonHref());
+        Assertions.assertEquals(EXPECTED_HEADER_AUTH_BUTTON_HREF, mainPage.getAuthButtonHref());
 
         mainPage.clickOnAuthButton();
 
-        Assert.assertEquals(EXPECTED_HEADER_AUTH_BUTTON_HREF, getWebdriverUrl());
+        Assertions.assertEquals(EXPECTED_HEADER_AUTH_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
     public void checkHeaderCartButton() {
-        Assert.assertEquals(EXPECTED_HEADER_CART_BUTTON_HREF, mainPage.getCartButtonHref());
+        Assertions.assertEquals(EXPECTED_HEADER_CART_BUTTON_HREF, mainPage.getCartButtonHref());
 
         mainPage.clickOnCartButton();
 
-        Assert.assertEquals(EXPECTED_HEADER_CART_BUTTON_HREF, getWebdriverUrl());
+        Assertions.assertEquals(EXPECTED_HEADER_CART_BUTTON_HREF, getWebdriverUrl());
     }
 
     @Test
     public void checkDigitsAllowedForSearchLine() {
         mainPage.searchInSearchLine(DIGITS_FOR_SEARCH_LINE);
 
-        Assert.assertEquals(DIGITS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
+        Assertions.assertEquals(DIGITS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
     }
 
     @Test
     public void checkLowercaseLettersAllowedForSearchLine() {
         mainPage.searchInSearchLine(LOWERCASE_LETTERS_FOR_SEARCH_LINE);
 
-        Assert.assertEquals(LOWERCASE_LETTERS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
+        Assertions.assertEquals(LOWERCASE_LETTERS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
     }
 
     @Test
     public void checkUppercaseLettersAllowedForSearchLine() {
         mainPage.searchInSearchLine(UPPERCASE_LETTERS_FOR_SEARCH_LINE);
 
-        Assert.assertEquals(UPPERCASE_LETTERS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
+        Assertions.assertEquals(UPPERCASE_LETTERS_FOR_SEARCH_LINE, mainPage.getSearchLineText());
     }
 
     @Test
@@ -93,18 +94,18 @@ public class WildberriesMainPageTest extends BaseSelenideTest {
         mainPage.clickOnProductCard();
         createProductPage();
 
-        Assert.assertEquals("https://www.wildberries.ru/catalog/" + mainPage.getProductCardId() + "/detail.aspx", getWebdriverUrl());
+        Assertions.assertEquals("https://www.wildberries.ru/catalog/" + mainPage.getProductCardId() + "/detail.aspx", getWebdriverUrl());
 
-        Assert.assertEquals(productPage.getProductName(), mainPage.getFirstProductName());
+        Assertions.assertEquals(productPage.getProductName(), mainPage.getFirstProductName());
     }
 
     @Test
     public void checkProductPopupButton() {
-        Assert.assertFalse(mainPage.getOpenProductPopupButtonVisibility());
+        Assertions.assertFalse(mainPage.getOpenProductPopupButtonVisibility());
 
         mainPage.hoverProductCard();
 
-        Assert.assertTrue(mainPage.getOpenProductPopupButtonVisibility());
+        Assertions.assertTrue(mainPage.getOpenProductPopupButtonVisibility());
 
         mainPage.getProductPopup().shouldNotBe(visible);
 
